@@ -2,6 +2,7 @@ package com.kerikir.news.di
 
 import android.content.Context
 import androidx.room.Room
+import com.kerikir.news.data.local.NewsDao
 import com.kerikir.news.data.local.NewsDatabase
 import dagger.Module
 import dagger.Provides
@@ -27,5 +28,11 @@ interface DataModule {
                 name = "news.db"
             ).fallbackToDestructiveMigration(true).build()
         }
+
+        @Provides
+        @Singleton
+        fun provideNewsDao(
+            database: NewsDatabase
+        ): NewsDao = database.newsDao()
     }
 }
