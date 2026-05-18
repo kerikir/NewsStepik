@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Article(
+data class ArticleDto(
     @SerialName("description")
     val description: String? = "",
     @SerialName("publishedAt")
