@@ -11,7 +11,7 @@ data class ArticleDto(
     @SerialName("publishedAt")
     val publishedAt: String = "",
     @SerialName("source")
-    val source: Source = Source(),
+    val source: SourceDto = SourceDto(),
     @SerialName("title")
     val title: String = "",
     @SerialName("url")
