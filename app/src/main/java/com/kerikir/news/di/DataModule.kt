@@ -5,6 +5,9 @@ import androidx.room.Room
 import com.kerikir.news.data.local.NewsDao
 import com.kerikir.news.data.local.NewsDatabase
 import com.kerikir.news.data.remote.NewsApiService
+import com.kerikir.news.data.repository.NewsRepositoryImpl
+import com.kerikir.news.domain.repository.NewsRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,6 +24,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 interface DataModule {
+
+    @Binds
+    @Singleton
+    fun bindNewsRepository(
+        impl: NewsRepositoryImpl
+    ): NewsRepository
 
     companion object {
 
