@@ -4,6 +4,7 @@ import com.kerikir.news.data.local.ArticleDbModel
 import com.kerikir.news.data.local.NewsDao
 import com.kerikir.news.data.local.SubscriptionDbModel
 import com.kerikir.news.data.mapper.toDbModels
+import com.kerikir.news.data.mapper.toEntities
 import com.kerikir.news.data.remote.NewsApiService
 import com.kerikir.news.domain.entity.Article
 import com.kerikir.news.domain.repository.NewsRepository
@@ -62,10 +63,12 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
     override fun getArticlesByTopics(topics: List<String>): Flow<List<Article>> {
-        TODO("Not yet implemented")
+        return newsDao.getAllArticlesByTopics(topics).map {
+            it.toEntities()
+        }
     }
 
     override suspend fun clearAllArticles(topics: List<String>) {
-        TODO("Not yet implemented")
+        newsDao.deleteArticlesByTopics(topics)
     }
 }

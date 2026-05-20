@@ -31,7 +31,7 @@ fun List<ArticleDbModel>.toEntities(): List<Article> {
             publishedAt = it.publishedAt,
             url = it.url
         )
-    }
+    }.distinct()
 }
 
 
