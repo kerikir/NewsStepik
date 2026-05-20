@@ -27,7 +27,10 @@ interface DataModule {
         @Singleton
         fun provideApiService(): NewsApiService {
             val baseUrl = "https://newsapi.org/"
-            val converter = Json.asConverterFactory(
+            val converter = Json {
+                ignoreUnknownKeys = true
+                coerceInputValues = true
+            }.asConverterFactory(
                 "application/json".toMediaType()
             )
             val retrofit = Retrofit.Builder()
