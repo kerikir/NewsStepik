@@ -8,8 +8,11 @@ import com.kerikir.news.data.remote.NewsApiService
 import com.kerikir.news.domain.entity.Article
 import com.kerikir.news.domain.repository.NewsRepository
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
@@ -44,11 +47,18 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun removeSubscription(topic: String) {
-        TODO("Not yet implemented")
+        newsDao.deleteSubscription(SubscriptionDbModel(topic))
     }
 
     override suspend fun updateArticlesForAllSubscription() {
-        TODO("Not yet implemented")
+        val subscriptions = newsDao.getAllSubscriptions().first()
+        coroutineScope {
+            subscriptions.forEach {
+                launch {
+                    updateArticlesForTopic(it.topic)
+                }
+            }
+        }
     }
 
     override fun getArticlesByTopics(topics: List<String>): Flow<List<Article>> {
