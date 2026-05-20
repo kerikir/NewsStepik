@@ -2,6 +2,7 @@ package com.kerikir.news.data.mapper
 
 import com.kerikir.news.data.local.ArticleDbModel
 import com.kerikir.news.data.remote.NewsResponseDto
+import com.kerikir.news.domain.entity.Article
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -20,7 +21,21 @@ fun NewsResponseDto.toDbModels(topic: String): List<ArticleDbModel> {
 }
 
 
-fun String.toTimestamp(): Long {
+fun List<ArticleDbModel>.toEntities(): List<Article> {
+    return map {
+        Article(
+            title = it.title,
+            description = it.description,
+            imageUrl = it.imageUrl,
+            sourceName = it.sourceName,
+            publishedAt = it.publishedAt,
+            url = it.url
+        )
+    }
+}
+
+
+private fun String.toTimestamp(): Long {
     val dateFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
     return dateFormatter.parse(this)?.time ?: System.currentTimeMillis()
 }
