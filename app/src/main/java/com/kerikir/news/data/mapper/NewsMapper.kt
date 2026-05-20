@@ -14,7 +14,7 @@ fun NewsResponseDto.toDbModels(topic: String): List<ArticleDbModel> {
             imageUrl = it.urlToImage,
             sourceName = it.source.name,
             topic = topic,
-            publishedAt = it.publishedAt
+            publishedAt = it.publishedAt.toTimestamp()
         )
     }
 }
@@ -22,4 +22,5 @@ fun NewsResponseDto.toDbModels(topic: String): List<ArticleDbModel> {
 
 fun String.toTimestamp(): Long {
     val dateFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+    return dateFormatter.parse(this)?.time ?: System.currentTimeMillis()
 }
