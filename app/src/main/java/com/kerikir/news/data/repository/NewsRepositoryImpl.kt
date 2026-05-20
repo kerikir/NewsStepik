@@ -1,10 +1,13 @@
 package com.kerikir.news.data.repository
 
+import com.kerikir.news.data.local.ArticleDbModel
 import com.kerikir.news.data.local.NewsDao
 import com.kerikir.news.data.local.SubscriptionDbModel
+import com.kerikir.news.data.mapper.toDbModels
 import com.kerikir.news.data.remote.NewsApiService
 import com.kerikir.news.domain.entity.Article
 import com.kerikir.news.domain.repository.NewsRepository
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -25,7 +28,19 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateArticlesForTopic(topic: String) {
-        TODO("Not yet implemented")
+        val articles = loadArticles(topic)
+        newsDao.addArticles(articles)
+    }
+
+    private suspend fun loadArticles(topic: String): List<ArticleDbModel> {
+        return try {
+            newsApiService.loadArticles(topic).toDbModels(topic)
+        } catch (e: Exception) {
+            if (e is CancellationException) {
+                throw e
+            }
+            listOf()
+        }
     }
 
     override suspend fun removeSubscription(topic: String) {
