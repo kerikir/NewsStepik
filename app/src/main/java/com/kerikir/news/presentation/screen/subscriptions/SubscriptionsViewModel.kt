@@ -1,6 +1,7 @@
 package com.kerikir.news.presentation.screen.subscriptions
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kerikir.news.domain.entity.Article
 import com.kerikir.news.domain.usecase.AddSubscriptionUseCase
 import com.kerikir.news.domain.usecase.ClearAllArticlesUseCase
@@ -11,6 +12,7 @@ import com.kerikir.news.domain.usecase.UpdateSubscribedArticlesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,6 +27,23 @@ class SubscriptionsViewModel @Inject constructor(
 
     private val _state = MutableStateFlow(SubscriptionsState())
     val state = _state.asStateFlow()
+
+
+    fun processCommand(command: SubscriptionsCommand) {
+        when (command) {
+            SubscriptionsCommand.ClearArticles -> {
+                viewModelScope.launch {
+                    val topics = state.value.selectedTopics
+                    clearAllArticlesUseCase(topics)
+                }
+            }
+            SubscriptionsCommand.ClickSubscribe -> {}
+            is SubscriptionsCommand.InputTopic -> {}
+            SubscriptionsCommand.RefreshData -> {}
+            is SubscriptionsCommand.RemoveSubscription -> {}
+            is SubscriptionsCommand.ToggleTopicSelection -> {}
+        }
+    }
 }
 
 
