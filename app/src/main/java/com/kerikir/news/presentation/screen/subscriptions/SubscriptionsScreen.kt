@@ -4,6 +4,9 @@ package com.kerikir.news.presentation.screen.subscriptions
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -14,6 +17,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -126,7 +130,19 @@ private fun Subscriptions(
    onDeleteSubscription: (String) -> Unit,
    onSubscribeButtonClick: () -> Unit
 ) {
-    Column {
+    Column(
+        modifier = modifier.fillMaxWidth()
+    ) {
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = query,
+            onValueChange = onQueryChanger,
+            label = {
+                Text(stringResource(R.string.what_interests_you))
+            },
+            singleLine = true
+        )
 
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }

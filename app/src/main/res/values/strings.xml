@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">News</string>
+
     <string name="subscriptions_title">My News</string>
     <string name="update_articles">Update articles</string>
     <string name="clear_articles">Clear articles</string>
     <string name="settings_screen">Settings Screen</string>
+
     <string name="remove_subscription">Remove subscription</string>
+    <string name="what_interests_you">What interests you?</string>
 </resources>
