@@ -19,6 +19,8 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
@@ -34,6 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.kerikir.news.R
+import com.kerikir.news.domain.entity.Article
 
 @Composable
 fun SubscriptionsScreen(
@@ -194,5 +197,20 @@ private fun Subscriptions(
                 textAlign = TextAlign.Center
             )
         }
+    }
+}
+
+
+
+@Composable
+private fun ArticleCard(
+    modifier: Modifier = Modifier,
+    article: Article
+) {
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+    ) {
+        
     }
 }
