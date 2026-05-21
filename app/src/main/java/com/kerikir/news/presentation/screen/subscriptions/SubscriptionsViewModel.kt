@@ -56,8 +56,18 @@ class SubscriptionsViewModel @Inject constructor(
                 }
             }
 
-            SubscriptionsCommand.RefreshData -> {}
-            is SubscriptionsCommand.RemoveSubscription -> {}
+            SubscriptionsCommand.RefreshData -> {
+                viewModelScope.launch {
+                    updateSubscribedArticlesUseCase()
+                }
+            }
+
+            is SubscriptionsCommand.RemoveSubscription -> {
+                viewModelScope.launch {
+                    removeSubscriptionUseCase(command.topic)
+                }
+            }
+
             is SubscriptionsCommand.ToggleTopicSelection -> {}
         }
     }
