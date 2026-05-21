@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.kerikir.news.R
@@ -186,6 +187,12 @@ private fun Subscriptions(
                     }
                 }
             }
+        } else {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringResource(R.string.no_subscriptions),
+                textAlign = TextAlign.Center
+            )
         }
     }
 }
