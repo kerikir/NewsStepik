@@ -6,7 +6,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -49,7 +51,27 @@ private fun SubscriptionsTopBar(
                     }
                     .padding(8.dp),
                 imageVector = Icons.Default.Refresh,
-                contentDescription = "Update articles"
+                contentDescription = stringResource(R.string.update_articles)
+            )
+            Icon(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .clickable {
+                        onClearArticlesClick()
+                    }
+                    .padding(8.dp),
+                imageVector = Icons.Default.Clear,
+                contentDescription = stringResource(R.string.clear_articles)
+            )
+            Icon(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .clickable {
+                        onSettingsClick()
+                    }
+                    .padding(8.dp),
+                imageVector = Icons.Default.Settings,
+                contentDescription = stringResource(R.string.settings_screen)
             )
         }
     )
