@@ -3,6 +3,7 @@
 package com.kerikir.news.presentation.screen.subscriptions
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -110,4 +111,22 @@ private fun SubscriptionChip(
             )
         }
     )
+}
+
+
+
+@Composable
+private fun Subscriptions(
+   modifier: Modifier = Modifier,
+   subscriptions: Map<String, Boolean>,
+   query: String,
+   isSubscribeButtonEnabled: Boolean,
+   onQueryChanger: (String) -> Unit,
+   onTopicClick: (String) -> Unit,
+   onDeleteSubscription: (String) -> Unit,
+   onSubscribeButtonClick: () -> Unit
+) {
+    Column {
+
+    }
 }
