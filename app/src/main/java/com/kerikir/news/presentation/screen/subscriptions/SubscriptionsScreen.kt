@@ -236,5 +236,15 @@ private fun ArticleCard(
         )
 
         Spacer(modifier = Modifier.height(8.dp))
+
+        if (article.description.isNotEmpty()) {
+            Text(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                text = article.description,
+                maxLines = 3,
+                overflow = TextOverflow.Ellipsis
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+        }
     }
 }
