@@ -8,4 +8,6 @@
 
     <string name="remove_subscription">Remove subscription</string>
     <string name="what_interests_you">What interests you?</string>
+    <string name="add_subscription">Add subscription</string>
+    <string name="add_subscription_button">Add Subscription</string>
 </resources>
