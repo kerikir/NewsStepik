@@ -3,6 +3,7 @@
 package com.kerikir.news.presentation.screen.subscriptions
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -27,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.kerikir.news.R
@@ -159,6 +162,30 @@ private fun Subscriptions(
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(stringResource(R.string.add_subscription_button))
+        }
+
+        if (subscriptions.isNotEmpty()) {
+            Text(
+                text = stringResource(R.string.subscriptions_label, subscriptions.size),
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                subscriptions.forEach { (topic, isSelected) ->
+                    item(key = topic) {
+                        SubscriptionChip(
+                            topic = topic,
+                            isSelected = isSelected,
+                            onSubscriptionClick = onTopicClick,
+                            onDeleteSubscription = onDeleteSubscription
+                        )
+                    }
+                }
+            }
         }
     }
 }
