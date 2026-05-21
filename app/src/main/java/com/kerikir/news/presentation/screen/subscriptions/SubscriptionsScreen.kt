@@ -76,3 +76,16 @@ private fun SubscriptionsTopBar(
         }
     )
 }
+
+
+
+@Composable
+private fun SubscriptionChip(
+   modifier: Modifier = Modifier,
+   topic: String,
+   isSelected: Boolean,
+   onSubscriptionClick: (String) -> Unit,
+   onDeleteSubscription: (String) -> Unit
+) {
+    
+}
