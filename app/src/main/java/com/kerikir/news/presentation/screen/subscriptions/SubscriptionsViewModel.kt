@@ -12,6 +12,7 @@ import com.kerikir.news.domain.usecase.UpdateSubscribedArticlesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,14 +32,30 @@ class SubscriptionsViewModel @Inject constructor(
 
     fun processCommand(command: SubscriptionsCommand) {
         when (command) {
+
             SubscriptionsCommand.ClearArticles -> {
                 viewModelScope.launch {
                     val topics = state.value.selectedTopics
                     clearAllArticlesUseCase(topics)
                 }
             }
-            SubscriptionsCommand.ClickSubscribe -> {}
-            is SubscriptionsCommand.InputTopic -> {}
+
+            SubscriptionsCommand.ClickSubscribe -> {
+                viewModelScope.launch {
+                    _state.update { previousState ->
+                        val topic = state.value.query.trim()
+                        addSubscriptionUseCase(topic)
+                        previousState.copy(query = "")
+                    }
+                }
+            }
+
+            is SubscriptionsCommand.InputTopic -> {
+                _state.update { previousState ->
+                    previousState.copy(query = command.query)
+                }
+            }
+
             SubscriptionsCommand.RefreshData -> {}
             is SubscriptionsCommand.RemoveSubscription -> {}
             is SubscriptionsCommand.ToggleTopicSelection -> {}
