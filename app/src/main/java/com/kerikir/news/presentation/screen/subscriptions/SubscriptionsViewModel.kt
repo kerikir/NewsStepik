@@ -12,6 +12,8 @@ import com.kerikir.news.domain.usecase.UpdateSubscribedArticlesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -77,6 +79,19 @@ class SubscriptionsViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+
+    private fun observeSubscriptions() {
+        getAllSubscriptionsUseCase()
+            .onEach { subscriptions ->
+                _state.update { previousState ->
+                    val updatedTopics = subscriptions.associateWith { topic ->
+                        previousState.subscriptions[topic] ?: true
+                    }
+                    previousState.copy(subscriptions = updatedTopics)
+                }
+            }.launchIn(viewModelScope)
     }
 }
 
