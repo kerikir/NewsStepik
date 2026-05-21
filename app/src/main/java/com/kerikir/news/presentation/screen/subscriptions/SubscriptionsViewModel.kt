@@ -68,7 +68,14 @@ class SubscriptionsViewModel @Inject constructor(
                 }
             }
 
-            is SubscriptionsCommand.ToggleTopicSelection -> {}
+            is SubscriptionsCommand.ToggleTopicSelection -> {
+                _state.update { previousState ->
+                    val subscriptions = previousState.subscriptions.toMutableMap()
+                    val isSelected = subscriptions[command.topic] ?: false
+                    subscriptions[command.topic] = !isSelected
+                    previousState.copy(subscriptions = subscriptions)
+                }
+            }
         }
     }
 }
