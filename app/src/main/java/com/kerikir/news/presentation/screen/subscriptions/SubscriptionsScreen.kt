@@ -4,12 +4,14 @@ package com.kerikir.news.presentation.screen.subscriptions
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -87,5 +89,25 @@ private fun SubscriptionChip(
    onSubscriptionClick: (String) -> Unit,
    onDeleteSubscription: (String) -> Unit
 ) {
-    
+    FilterChip(
+        modifier = modifier,
+        selected = isSelected,
+        onClick = {
+            onSubscriptionClick(topic)
+        },
+        label = {
+            Text(topic)
+        },
+        trailingIcon = {
+            Icon(
+                modifier = Modifier
+                    .size(16.dp)
+                    .clickable {
+                        onDeleteSubscription(topic)
+                    },
+                imageVector = Icons.Default.Clear,
+                contentDescription = stringResource(R.string.remove_subscription)
+            )
+        }
+    )
 }
