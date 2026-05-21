@@ -12,4 +12,6 @@
     <string name="add_subscription_button">Add Subscription</string>
     <string name="subscriptions_label">Subscriptions (%1$d)</string>
     <string name="no_subscriptions">No subscriptions</string>
+
+    <string name="image_for_article">Image for article %1$s</string>
 </resources>

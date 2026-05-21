@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -30,11 +31,13 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import coil3.compose.AsyncImage
 import com.kerikir.news.R
 import com.kerikir.news.domain.entity.Article
 
@@ -211,6 +214,16 @@ private fun ArticleCard(
         modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
-        
+        article.imageUrl?.let { imageUrl ->
+            AsyncImage(
+                model = imageUrl,
+                contentDescription = stringResource(R.string.image_for_article, article.title),
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(max = 200.dp)
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+        }
     }
 }
