@@ -19,4 +19,8 @@ sealed interface SubscriptionsCommand {
     data object RefreshData : SubscriptionsCommand
 
     data class ToggleTopicSelection(val topic: String) : SubscriptionsCommand
+
+    data object ClearArticles : SubscriptionsCommand
+
+    data class RemoveSubscription(val topic: String) : SubscriptionsCommand
 }
