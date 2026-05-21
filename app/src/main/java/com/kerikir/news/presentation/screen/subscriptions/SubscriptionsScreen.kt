@@ -10,3 +10,15 @@ fun SubscriptionsScreen(
     onNavigateToSettings: () -> Unit,
     viewModel: SubscriptionsViewModel = hiltViewModel()
 ) {}
+
+
+
+@Composable
+private fun SubscriptionsTopBar(
+    modifier: Modifier = Modifier,
+    onRefreshDataClick: () -> Unit,
+    onClearArticlesClick: () -> Unit,
+    onSettingsClick: () -> Unit
+) {
+
+}
