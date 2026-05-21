@@ -40,6 +40,7 @@ class SubscriptionsViewModel @Inject constructor(
 
     init {
         observeSubscriptions()
+        observeSelectedTopics()
     }
 
 
