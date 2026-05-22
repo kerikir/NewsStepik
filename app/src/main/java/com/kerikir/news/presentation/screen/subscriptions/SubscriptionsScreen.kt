@@ -82,7 +82,25 @@ fun SubscriptionsScreen(
             contentPadding = innerPadding,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-
+            item {
+                Subscriptions(
+                    subscriptions = state.subscriptions,
+                    query = state.query,
+                    isSubscribeButtonEnabled = state.subscribeButtonEnabled,
+                    onQueryChanger = {
+                        viewModel.processCommand(SubscriptionsCommand.InputTopic(it))
+                    },
+                    onSubscribeButtonClick = {
+                        viewModel.processCommand(SubscriptionsCommand.ClickSubscribe)
+                    },
+                    onTopicClick = {
+                        viewModel.processCommand(SubscriptionsCommand.ToggleTopicSelection(it))
+                    },
+                    onDeleteSubscription = {
+                        viewModel.processCommand(SubscriptionsCommand.RemoveSubscription(it))
+                    }
+                )
+            }
         }
     }
 }
