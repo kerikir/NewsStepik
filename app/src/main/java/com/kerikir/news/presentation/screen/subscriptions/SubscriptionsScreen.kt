@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -115,6 +116,12 @@ fun SubscriptionsScreen(
                 }
                 item {
                     HorizontalDivider()
+                }
+                items(
+                    items = state.articles,
+                    key = { it.url }
+                ) {
+                    ArticleCard(article = it)
                 }
             }
         }
