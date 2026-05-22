@@ -1,6 +1,9 @@
 package com.kerikir.news.domain.usecase
 
 import com.kerikir.news.domain.repository.NewsRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AddSubscriptionUseCase @Inject constructor(
@@ -9,6 +12,8 @@ class AddSubscriptionUseCase @Inject constructor(
 
     suspend operator fun invoke(topic: String) {
         newsRepository.addSubscription(topic)
-        newsRepository.updateArticlesForTopic(topic)
+        CoroutineScope(currentCoroutineContext()).launch {
+            newsRepository.updateArticlesForTopic(topic)
+        }
     }
 }
