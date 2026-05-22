@@ -4,11 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.lifecycle.lifecycleScope
 import com.kerikir.news.domain.repository.NewsRepository
+import com.kerikir.news.presentation.screen.subscriptions.SubscriptionsScreen
 import com.kerikir.news.presentation.ui.theme.NewsTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -20,12 +19,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        lifecycleScope.launch {
-            newsRepository.addSubscription("Kotlin")
-            newsRepository.updateArticlesForTopic("Kotlin")
-        }
         setContent {
             NewsTheme {
+                SubscriptionsScreen(
+                    onNavigateToSettings = {}
+                )
             }
         }
     }
