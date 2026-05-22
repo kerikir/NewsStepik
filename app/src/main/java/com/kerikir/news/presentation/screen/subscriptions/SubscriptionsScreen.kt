@@ -262,6 +262,8 @@ private fun Subscriptions(
             Text(stringResource(R.string.add_subscription_button))
         }
 
+        Spacer(modifier = Modifier.height(16.dp))
+
         if (subscriptions.isNotEmpty()) {
             Text(
                 text = stringResource(R.string.subscriptions_label, subscriptions.size),
@@ -303,7 +305,10 @@ private fun ArticleCard(
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        )
     ) {
         article.imageUrl?.let { imageUrl ->
             AsyncImage(
