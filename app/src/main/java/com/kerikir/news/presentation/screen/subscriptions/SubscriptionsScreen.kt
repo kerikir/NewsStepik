@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -44,6 +45,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil3.compose.AsyncImage
 import com.kerikir.news.R
 import com.kerikir.news.domain.entity.Article
+import com.kerikir.news.presentation.ui.theme.CustomIcons
 import com.kerikir.news.presentation.utils.formatDate
 
 @Composable
@@ -252,7 +254,8 @@ private fun ArticleCard(
         }
 
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -266,5 +269,39 @@ private fun ArticleCard(
                 fontSize = 12.sp
             )
         }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Button(
+                modifier = Modifier.weight(1f),
+                onClick = {}
+            ) {
+                Icon(
+                    imageVector = CustomIcons.MaterialIconsOpenInNew,
+                    contentDescription = stringResource(R.string.read_article)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(text = stringResource(R.string.read))
+            }
+            Button(
+                modifier = Modifier.weight(1f),
+                onClick = {}
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Share,
+                    contentDescription = stringResource(R.string.share_article)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(text = stringResource(R.string.share))
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
