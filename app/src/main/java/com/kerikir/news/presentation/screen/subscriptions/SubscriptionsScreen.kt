@@ -123,6 +123,17 @@ fun SubscriptionsScreen(
                 ) {
                     ArticleCard(article = it)
                 }
+            } else if (state.subscriptions.isNotEmpty()) {
+                item {
+                    HorizontalDivider()
+                }
+                item {
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = stringResource(R.string.no_articles_for_selected_subscriptions),
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
         }
     }

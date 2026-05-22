@@ -20,4 +20,5 @@
     <string name="share">Share</string>
 
     <string name="articles">Articles (%1$d)</string>
+    <string name="no_articles_for_selected_subscriptions">No articles for selected subscriptions</string>
 </resources>
