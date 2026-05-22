@@ -28,6 +28,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -77,7 +78,8 @@ fun SubscriptionsScreen(
         val state by viewModel.state.collectAsState()
 
         LazyColumn(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             contentPadding = innerPadding,
             verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -100,6 +102,20 @@ fun SubscriptionsScreen(
                         viewModel.processCommand(SubscriptionsCommand.RemoveSubscription(it))
                     }
                 )
+            }
+            if (state.articles.isNotEmpty()) {
+                item {
+                    HorizontalDivider()
+                }
+                item {
+                    Text(
+                        text = stringResource(R.string.articles, state.articles.size),
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                item {
+                    HorizontalDivider()
+                }
             }
         }
     }

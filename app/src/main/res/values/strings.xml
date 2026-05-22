@@ -18,4 +18,6 @@
     <string name="read">Read</string>
     <string name="share_article">Share article</string>
     <string name="share">Share</string>
+
+    <string name="articles">Articles (%1$d)</string>
 </resources>
