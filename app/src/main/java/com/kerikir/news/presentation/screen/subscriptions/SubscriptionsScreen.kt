@@ -388,7 +388,13 @@ private fun ArticleCard(
             }
             Button(
                 modifier = Modifier.weight(1f),
-                onClick = {}
+                onClick = {
+                    val intent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, "${article.title}\n\n${article.url}")
+                    }
+                    context.startActivity(intent)
+                }
             ) {
                 Icon(
                     imageVector = Icons.Default.Share,
