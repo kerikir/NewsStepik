@@ -24,10 +24,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             NewsTheme {
                 SubscriptionsScreen(
-                    onNavigateToSettings = {
-                        val intent = Intent(Intent.ACTION_DIAL, "tel:+79632163276".toUri())
-                        startActivity(intent)
-                    }
+                    onNavigateToSettings = {}
                 )
             }
         }
