@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.core.net.toUri
 import com.kerikir.news.domain.repository.NewsRepository
 import com.kerikir.news.presentation.screen.subscriptions.SubscriptionsScreen
 import com.kerikir.news.presentation.ui.theme.NewsTheme
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
             NewsTheme {
                 SubscriptionsScreen(
                     onNavigateToSettings = {
-                        val intent = Intent(this, MainActivity::class.java)
+                        val intent = Intent(Intent.ACTION_DIAL, "tel:+79632163276".toUri())
                         startActivity(intent)
                     }
                 )
