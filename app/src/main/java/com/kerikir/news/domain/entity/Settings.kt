@@ -2,7 +2,9 @@ package com.kerikir.news.domain.entity
 
 data class Settings(
     val language: Language,
-    val interval: Interval
+    val interval: Interval,
+    val notificationsEnabled: Boolean,
+    val wifiOnly: Boolean
 )
 
 
