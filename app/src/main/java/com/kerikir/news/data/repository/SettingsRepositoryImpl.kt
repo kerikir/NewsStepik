@@ -10,6 +10,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.kerikir.news.domain.entity.Language
 import com.kerikir.news.domain.entity.Settings
 import com.kerikir.news.domain.repository.SettingsRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 
 
 class SettingsRepositoryImpl @Inject constructor(
-
+    @ApplicationContext private val context: Context
 ) : SettingsRepository {
 
     private val languageKey = stringPreferencesKey("language")
