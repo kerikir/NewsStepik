@@ -7,11 +7,13 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.kerikir.news.data.mapper.toInterval
 import com.kerikir.news.domain.entity.Language
 import com.kerikir.news.domain.entity.Settings
 import com.kerikir.news.domain.repository.SettingsRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 
@@ -29,7 +31,21 @@ class SettingsRepositoryImpl @Inject constructor(
 
 
     override fun getSettings(): Flow<Settings> {
-        TODO("Not yet implemented")
+        return context.dataStore.data.map { preferences ->
+            val languageAsString = preferences[languageKey] ?: Language.ENGLISH.name
+            val language = Language.valueOf(languageAsString)
+            val intervalMinutes = preferences[intervalKey] ?: 15
+            val interval = intervalMinutes.toInterval()
+            val notificationsEnabled = preferences[notificationsEnabledKey] ?: false
+            val wifiOnly = preferences[wifiOnlyKey] ?: false
+
+            Settings(
+                language = language,
+                interval = interval,
+                notificationsEnabled = notificationsEnabled,
+                wifiOnly = wifiOnly
+            )
+        }
     }
 
     override suspend fun updateLanguage(language: Language) {
