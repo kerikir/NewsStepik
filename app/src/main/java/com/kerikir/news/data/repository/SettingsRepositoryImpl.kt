@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -48,7 +49,9 @@ class SettingsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateLanguage(language: Language) {
-        TODO("Not yet implemented")
+        context.dataStore.edit { preferences ->
+            preferences[languageKey] = language.name
+        }
     }
 
     override suspend fun updateInterval(minutes: Int) {
