@@ -61,7 +61,9 @@ class SettingsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateNotificationsEnabled(enabled: Boolean) {
-        TODO("Not yet implemented")
+        context.dataStore.edit { preferences ->
+            preferences[notificationsEnabledKey] = enabled
+        }
     }
 
     override suspend fun updateWifiOnly(wifiOnly: Boolean) {
