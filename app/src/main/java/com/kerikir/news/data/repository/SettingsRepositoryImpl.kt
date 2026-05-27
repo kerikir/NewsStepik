@@ -55,7 +55,9 @@ class SettingsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateInterval(minutes: Int) {
-        TODO("Not yet implemented")
+        context.dataStore.edit { preferences ->
+            preferences[intervalKey] = minutes
+        }
     }
 
     override suspend fun updateNotificationsEnabled(enabled: Boolean) {
