@@ -67,6 +67,8 @@ class SettingsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateWifiOnly(wifiOnly: Boolean) {
-        TODO("Not yet implemented")
+        context.dataStore.edit { preferences ->
+            preferences[wifiOnlyKey] = wifiOnly
+        }
     }
 }
