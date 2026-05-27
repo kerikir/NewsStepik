@@ -32,12 +32,11 @@ class SettingsRepositoryImpl @Inject constructor(
 
     override fun getSettings(): Flow<Settings> {
         return context.dataStore.data.map { preferences ->
-            val languageAsString = preferences[languageKey] ?: Language.ENGLISH.name
+            val languageAsString = preferences[languageKey] ?: Settings.DEFAULT_LANGUAGE.name
             val language = Language.valueOf(languageAsString)
-            val intervalMinutes = preferences[intervalKey] ?: 15
-            val interval = intervalMinutes.toInterval()
-            val notificationsEnabled = preferences[notificationsEnabledKey] ?: false
-            val wifiOnly = preferences[wifiOnlyKey] ?: false
+            val interval = preferences[intervalKey]?.toInterval() ?: Settings.DEFAULT_INTERVAL
+            val notificationsEnabled = preferences[notificationsEnabledKey] ?: Settings.DEFAULT_NOTIFICATIONS_ENABLED
+            val wifiOnly = preferences[wifiOnlyKey] ?: Settings.DEFAULT_WIFI_ONLY
 
             Settings(
                 language = language,
