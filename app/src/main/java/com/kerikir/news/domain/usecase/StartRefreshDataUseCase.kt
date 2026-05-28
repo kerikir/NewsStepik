@@ -1,6 +1,6 @@
 package com.kerikir.news.domain.usecase
 
-import com.kerikir.news.data.mapper.toRefreshConfig
+import com.kerikir.news.domain.mapper.toRefreshConfig
 import com.kerikir.news.domain.repository.NewsRepository
 import com.kerikir.news.domain.repository.SettingsRepository
 import kotlinx.coroutines.flow.collect
