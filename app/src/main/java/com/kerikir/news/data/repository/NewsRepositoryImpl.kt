@@ -34,8 +34,7 @@ import javax.inject.Inject
 class NewsRepositoryImpl @Inject constructor(
     private val newsDao: NewsDao,
     private val newsApiService: NewsApiService,
-    private val workManager: WorkManager,
-    private val settingsRepository: SettingsRepository
+    private val workManager: WorkManager
 ) : NewsRepository {
 
     override fun getAllSubscriptions(): Flow<List<String>> {

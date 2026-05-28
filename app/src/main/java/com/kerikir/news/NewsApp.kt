@@ -20,4 +20,10 @@ class NewsApp : Application(), Configuration.Provider {
         get() = Configuration.Builder()
             .setWorkerFactory(workerFactory)
             .build()
+
+
+    override fun onCreate() {
+        super.onCreate()
+        appStartupManager.startRefreshData()
+    }
 }
