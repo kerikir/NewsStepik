@@ -38,16 +38,6 @@ class NewsRepositoryImpl @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) : NewsRepository {
 
-    private val scope = CoroutineScope(Dispatchers.IO)
-
-    init {
-        settingsRepository.getSettings()
-            .map { it.toRefreshConfig() }
-            .distinctUntilChanged()
-            .onEach { startBackgroundRefresh(it) }
-            .launchIn(scope)
-    }
-
     override fun getAllSubscriptions(): Flow<List<String>> {
         return newsDao.getAllSubscriptions().map { subscriptions ->
             subscriptions.map { it.topic }
@@ -100,7 +90,7 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
 
-    private fun startBackgroundRefresh(refreshConfig: RefreshConfig) {
+    override fun startBackgroundRefresh(refreshConfig: RefreshConfig) {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(
                 if (refreshConfig.wifiOnly) {
