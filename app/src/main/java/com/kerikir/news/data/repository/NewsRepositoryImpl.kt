@@ -1,6 +1,8 @@
 package com.kerikir.news.data.repository
 
+import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.kerikir.news.data.background.RefreshDataWorker
@@ -11,6 +13,7 @@ import com.kerikir.news.data.mapper.toDbModels
 import com.kerikir.news.data.mapper.toEntities
 import com.kerikir.news.data.remote.NewsApiService
 import com.kerikir.news.domain.entity.Article
+import com.kerikir.news.domain.entity.RefreshConfig
 import com.kerikir.news.domain.repository.NewsRepository
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.coroutineScope
@@ -28,7 +31,7 @@ class NewsRepositoryImpl @Inject constructor(
 ) : NewsRepository {
 
     override fun getAllSubscriptions(): Flow<List<String>> {
-        return newsDao.getAllSubscriptions().map {  subscriptions ->
+        return newsDao.getAllSubscriptions().map { subscriptions ->
             subscriptions.map { it.topic }
         }
     }
@@ -79,10 +82,21 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
 
-    private fun startBackgroundRefresh() {
+    private fun startBackgroundRefresh(refreshConfig: RefreshConfig) {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(
+                if (refreshConfig.wifiOnly) {
+                    NetworkType.UNMETERED
+                } else {
+                    NetworkType.CONNECTED
+                }
+            )
+            .setRequiresBatteryNotLow(true)
+            .build()
+
         val request = PeriodicWorkRequestBuilder<RefreshDataWorker>(
-            15L, TimeUnit.MINUTES
-        ).build()
+            refreshConfig.interval.minutes.toLong(), TimeUnit.MINUTES
+        ).setConstraints(constraints).build()
 
         workManager.enqueueUniquePeriodicWork(
             uniqueWorkName = "Refresh Data",
