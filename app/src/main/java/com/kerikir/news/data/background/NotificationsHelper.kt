@@ -38,7 +38,9 @@ class NotificationsHelper @Inject constructor(
 
 
     fun showNewArticlesNotification(topics: List<String>) {
-        val intent = Intent(context, MainActivity::class.java)
+        val intent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
 
         val pendingIntent = PendingIntent.getActivity(
             context,
