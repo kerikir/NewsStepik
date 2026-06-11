@@ -7,7 +7,7 @@ class UpdateSubscribedArticlesUseCase @Inject constructor(
     private val newsRepository: NewsRepository
 ) {
 
-    suspend operator fun invoke() {
-        newsRepository.updateArticlesForAllSubscription()
+    suspend operator fun invoke(): List<String> {
+        return newsRepository.updateArticlesForAllSubscription()
     }
 }
