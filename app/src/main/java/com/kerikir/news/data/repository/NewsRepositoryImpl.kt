@@ -13,6 +13,7 @@ import com.kerikir.news.data.mapper.toDbModels
 import com.kerikir.news.data.mapper.toEntities
 import com.kerikir.news.data.remote.NewsApiService
 import com.kerikir.news.domain.entity.Article
+import com.kerikir.news.domain.entity.Language
 import com.kerikir.news.domain.entity.RefreshConfig
 import com.kerikir.news.domain.repository.NewsRepository
 import kotlinx.coroutines.CancellationException
@@ -46,9 +47,9 @@ class NewsRepositoryImpl @Inject constructor(
         return ids.any { it != -1L }
     }
 
-    private suspend fun loadArticles(topic: String): List<ArticleDbModel> {
+    private suspend fun loadArticles(topic: String, language: Language): List<ArticleDbModel> {
         return try {
-            newsApiService.loadArticles(topic).toDbModels(topic)
+            newsApiService.loadArticles(topic, language).toDbModels(topic)
         } catch (e: Exception) {
             if (e is CancellationException) {
                 throw e
