@@ -10,7 +10,7 @@ interface NewsRepository {
 
     suspend fun addSubscription(topic: String)
 
-    suspend fun updateArticlesForTopic(topic: String)
+    suspend fun updateArticlesForTopic(topic: String): Boolean
 
     suspend fun removeSubscription(topic: String)
 

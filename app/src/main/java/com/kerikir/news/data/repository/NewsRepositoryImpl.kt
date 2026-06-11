@@ -11,22 +11,15 @@ import com.kerikir.news.data.local.NewsDao
 import com.kerikir.news.data.local.SubscriptionDbModel
 import com.kerikir.news.data.mapper.toDbModels
 import com.kerikir.news.data.mapper.toEntities
-import com.kerikir.news.data.mapper.toRefreshConfig
 import com.kerikir.news.data.remote.NewsApiService
 import com.kerikir.news.domain.entity.Article
 import com.kerikir.news.domain.entity.RefreshConfig
 import com.kerikir.news.domain.repository.NewsRepository
-import com.kerikir.news.domain.repository.SettingsRepository
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -47,9 +40,10 @@ class NewsRepositoryImpl @Inject constructor(
         newsDao.addSubscription(SubscriptionDbModel(topic))
     }
 
-    override suspend fun updateArticlesForTopic(topic: String) {
+    override suspend fun updateArticlesForTopic(topic: String): Boolean {
         val articles = loadArticles(topic)
-        newsDao.addArticles(articles)
+        val ids = newsDao.addArticles(articles)
+        return ids.any { it != -1L }
     }
 
     private suspend fun loadArticles(topic: String): List<ArticleDbModel> {
@@ -68,6 +62,7 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateArticlesForAllSubscription(): List<String>  {
+        val updatedTopics = mutableListOf<String>()
         val subscriptions = newsDao.getAllSubscriptions().first()
         coroutineScope {
             subscriptions.forEach {
@@ -76,6 +71,7 @@ class NewsRepositoryImpl @Inject constructor(
                 }
             }
         }
+        return updatedTopics
     }
 
     override fun getArticlesByTopics(topics: List<String>): Flow<List<Article>> {
