@@ -67,7 +67,10 @@ class NewsRepositoryImpl @Inject constructor(
         coroutineScope {
             subscriptions.forEach {
                 launch {
-                    updateArticlesForTopic(it.topic)
+                    val updated =  updateArticlesForTopic(it.topic)
+                    if (updated) {
+                        updatedTopics.add(it.topic)
+                    }
                 }
             }
         }
