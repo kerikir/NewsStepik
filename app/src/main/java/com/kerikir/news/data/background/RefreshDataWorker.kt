@@ -14,11 +14,15 @@ class RefreshDataWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParameters: WorkerParameters,
     private val updateSubscribedArticlesUseCase: UpdateSubscribedArticlesUseCase
+    private val notificationsHelper: NotificationsHelper
 ) : CoroutineWorker(context, workerParameters) {
 
     override suspend fun doWork(): Result {
         Log.d("RefreshDataWorker", "Start")
-        updateSubscribedArticlesUseCase()
+        val updatedTopics =  updateSubscribedArticlesUseCase()
+        if (updatedTopics.isNotEmpty()) {
+            notificationsHelper.showNewArticlesNotification(updatedTopics)
+        }
         Log.d("RefreshDataWorker", "Finish")
         return Result.success()
     }
