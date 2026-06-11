@@ -50,21 +50,9 @@ fun Int.toInterval(): Interval {
 
 fun Language.toQueryParam(): String {
     return when(this) {
-
-        Language.ENGLISH -> {
-            "en"
-        }
-
-        Language.RUSSIAN -> {
-            "ru"
-        }
-
-        Language.FRENCH -> {
-            "fr"
-        }
-
-        Language.GERMAN -> {
-            "de"
-        }
+        Language.ENGLISH -> "en"
+        Language.RUSSIAN -> "ru"
+        Language.FRENCH -> "fr"
+        Language.GERMAN -> "de"
     }
 }

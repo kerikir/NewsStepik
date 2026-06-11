@@ -1,6 +1,7 @@
 package com.kerikir.news.domain.repository
 
 import com.kerikir.news.domain.entity.Article
+import com.kerikir.news.domain.entity.Language
 import com.kerikir.news.domain.entity.RefreshConfig
 import kotlinx.coroutines.flow.Flow
 
@@ -10,7 +11,7 @@ interface NewsRepository {
 
     suspend fun addSubscription(topic: String)
 
-    suspend fun updateArticlesForTopic(topic: String): Boolean
+    suspend fun updateArticlesForTopic(topic: String, language: Language): Boolean
 
     suspend fun removeSubscription(topic: String)
 

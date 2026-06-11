@@ -11,6 +11,7 @@ import com.kerikir.news.data.local.NewsDao
 import com.kerikir.news.data.local.SubscriptionDbModel
 import com.kerikir.news.data.mapper.toDbModels
 import com.kerikir.news.data.mapper.toEntities
+import com.kerikir.news.data.mapper.toQueryParam
 import com.kerikir.news.data.remote.NewsApiService
 import com.kerikir.news.domain.entity.Article
 import com.kerikir.news.domain.entity.Language
@@ -41,15 +42,15 @@ class NewsRepositoryImpl @Inject constructor(
         newsDao.addSubscription(SubscriptionDbModel(topic))
     }
 
-    override suspend fun updateArticlesForTopic(topic: String): Boolean {
-        val articles = loadArticles(topic)
+    override suspend fun updateArticlesForTopic(topic: String, language: Language): Boolean {
+        val articles = loadArticles(topic, language)
         val ids = newsDao.addArticles(articles)
         return ids.any { it != -1L }
     }
 
     private suspend fun loadArticles(topic: String, language: Language): List<ArticleDbModel> {
         return try {
-            newsApiService.loadArticles(topic, language).toDbModels(topic)
+            newsApiService.loadArticles(topic, language.toQueryParam()).toDbModels(topic)
         } catch (e: Exception) {
             if (e is CancellationException) {
                 throw e
