@@ -1,6 +1,7 @@
 package com.kerikir.news.presentation.screen.settings
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kerikir.news.domain.entity.Interval
 import com.kerikir.news.domain.entity.Language
 import com.kerikir.news.domain.usecase.GetSettingsUseCase
@@ -8,6 +9,11 @@ import com.kerikir.news.domain.usecase.UpdateIntervalUseCase
 import com.kerikir.news.domain.usecase.UpdateLanguageUseCase
 import com.kerikir.news.domain.usecase.UpdateNotificationsEnabledUseCase
 import com.kerikir.news.domain.usecase.UpdateWifiOnlyUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 
@@ -18,6 +24,25 @@ class SettingsViewModel @Inject constructor(
     private val updateNotificationsEnabledUseCase: UpdateNotificationsEnabledUseCase,
     private val updateWifiOnlyUseCase: UpdateWifiOnlyUseCase
 ) : ViewModel() {
+
+    private val _state = MutableStateFlow<SettingsState>(SettingsState.Initial)
+    val state = _state.asStateFlow()
+
+
+    init {
+        getSettingsUseCase()
+            .onEach { settings ->
+                _state.update {
+                    SettingsState.Configuration(
+                        language = settings.language,
+                        interval = settings.interval,
+                        wifiOnly = settings.wifiOnly,
+                        notificationsEnabled = settings.notificationsEnabled
+                    )
+                }
+            }
+            .launchIn(viewModelScope)
+    }
 }
 
 
@@ -30,7 +55,7 @@ sealed interface SettingsState {
         val language: Language,
         val interval: Interval,
         val wifiOnly: Boolean,
-        val notificationsEnable: Boolean,
+        val notificationsEnabled: Boolean,
         val languages: List<Language> = Language.entries,
         val intervals: List<Interval> = Interval.entries
     ) : SettingsState
