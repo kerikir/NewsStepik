@@ -9,6 +9,7 @@ import com.kerikir.news.domain.usecase.UpdateIntervalUseCase
 import com.kerikir.news.domain.usecase.UpdateLanguageUseCase
 import com.kerikir.news.domain.usecase.UpdateNotificationsEnabledUseCase
 import com.kerikir.news.domain.usecase.UpdateWifiOnlyUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -18,6 +19,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
+@HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val getSettingsUseCase: GetSettingsUseCase,
     private val updateIntervalUseCase: UpdateIntervalUseCase,
