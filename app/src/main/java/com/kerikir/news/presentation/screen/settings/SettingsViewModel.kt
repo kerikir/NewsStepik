@@ -47,6 +47,19 @@ class SettingsViewModel @Inject constructor(
 
 
 
+sealed interface SettingsCommand {
+
+    data class SelectLanguage(val language: Language) : SettingsCommand
+
+    data class SelectInterval(val interval: Interval) : SettingsCommand
+
+    data class SetNotificationsEnabled(val enabled: Boolean) : SettingsCommand
+
+    data class SetWifiOnly(val wifiOnly: Boolean) : SettingsCommand
+}
+
+
+
 sealed interface SettingsState {
 
     data object Initial : SettingsState
