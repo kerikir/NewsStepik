@@ -15,6 +15,7 @@ private val keystoreProperties = keystorePropertiesFile.inputStream().use { inpu
         load(inputStream)
     }
 }
+private val apiKey = keystoreProperties.getProperty("NEWS_API_KEY")
 
 android {
     namespace = "com.kerikir.news"
@@ -30,7 +31,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "NEWS_API_KEY", "\"a84885b07a5140eb8c801ae06c3e14c5\"")
+        buildConfigField("String", "NEWS_API_KEY", apiKey)
     }
 
     buildTypes {
