@@ -52,3 +52,14 @@ private fun SettingsCard(
         }
     }
 }
+
+
+
+@Composable
+private fun<T> SettingsDropdown(
+    modifier: Modifier = Modifier,
+    items: List<T>,
+    selectedItem: T,
+    onItemSelected: (T) -> Unit,
+    itemAsString: (T) -> String
+) {}
