@@ -11,3 +11,13 @@ fun SettingsScreen(
    onBackClick: () -> Unit,
    viewModel: SettingsViewModel = hiltViewModel()
 ) {}
+
+
+
+@Composable
+private fun SettingsCard(
+    modifier: Modifier = Modifier,
+    title: String,
+    subtitle: String,
+    content: @Composable () -> Unit
+) {}
