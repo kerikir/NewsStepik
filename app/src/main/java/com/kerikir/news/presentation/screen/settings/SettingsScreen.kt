@@ -47,6 +47,8 @@ private fun SettingsCard(
                 text = subtitle,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
+            Spacer(modifier = Modifier.height(4.dp))
+            content()
         }
     }
 }
