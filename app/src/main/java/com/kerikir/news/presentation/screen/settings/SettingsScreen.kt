@@ -20,6 +20,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
@@ -82,6 +83,7 @@ fun SettingsScreen(
                             )
                         }
                     }
+
                     item {
                         SettingsCard(
                             title = stringResource(R.string.update_interval),
@@ -95,6 +97,22 @@ fun SettingsScreen(
                                 },
                                 itemAsString = {
                                     it.toReadableFormat()
+                                }
+                            )
+                        }
+                    }
+
+                    item {
+                        SettingsCard(
+                            title = "Notifications",
+                            subtitle = "Show notifications about new articles"
+                        ) {
+                            Switch(
+                                checked = currentState.notificationsEnabled,
+                                onCheckedChange = {
+                                    viewModel.processCommand(
+                                        SettingsCommand.SetNotificationsEnabled(it)
+                                    )
                                 }
                             )
                         }
