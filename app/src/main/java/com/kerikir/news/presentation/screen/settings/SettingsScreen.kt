@@ -82,6 +82,23 @@ fun SettingsScreen(
                             )
                         }
                     }
+                    item {
+                        SettingsCard(
+                            title = stringResource(R.string.update_interval),
+                            subtitle = stringResource(R.string.how_often_to_update_news)
+                        ) {
+                            SettingsDropdown(
+                                items = currentState.intervals,
+                                selectedItem = currentState.interval,
+                                onItemSelected = {
+                                    viewModel.processCommand(SettingsCommand.SelectInterval(it))
+                                },
+                                itemAsString = {
+                                    it.toReadableFormat()
+                                }
+                            )
+                        }
+                    }
                 }
             }
 

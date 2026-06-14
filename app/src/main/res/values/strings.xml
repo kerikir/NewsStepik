@@ -34,4 +34,6 @@
     <string name="russian">Русский</string>
     <string name="french">Français</string>
     <string name="german">Deutsch</string>
+    <string name="update_interval">Update Interval</string>
+    <string name="how_often_to_update_news">How often to update news</string>
 </resources>
