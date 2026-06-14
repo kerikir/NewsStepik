@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
@@ -92,5 +93,22 @@ private fun<T> SettingsDropdown(
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
             }
         )
+
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            items.forEach { item ->
+                DropdownMenuItem(
+                    text = {
+                        Text(itemAsString(item))
+                    },
+                    onClick = {
+                        onItemSelected(item)
+                        expanded = false
+                    }
+                )
+            }
+        }
     }
 }
