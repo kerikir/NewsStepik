@@ -104,14 +104,30 @@ fun SettingsScreen(
 
                     item {
                         SettingsCard(
-                            title = "Notifications",
-                            subtitle = "Show notifications about new articles"
+                            title = stringResource(R.string.notifications),
+                            subtitle = stringResource(R.string.show_notifications_about_new_articles)
                         ) {
                             Switch(
                                 checked = currentState.notificationsEnabled,
                                 onCheckedChange = {
                                     viewModel.processCommand(
                                         SettingsCommand.SetNotificationsEnabled(it)
+                                    )
+                                }
+                            )
+                        }
+                    }
+
+                    item {
+                        SettingsCard(
+                            title = stringResource(R.string.update_only_via_wi_fi),
+                            subtitle = stringResource(R.string.save_mobile_data)
+                        ) {
+                            Switch(
+                                checked = currentState.wifiOnly,
+                                onCheckedChange = {
+                                    viewModel.processCommand(
+                                        SettingsCommand.SetWifiOnly(it)
                                     )
                                 }
                             )
