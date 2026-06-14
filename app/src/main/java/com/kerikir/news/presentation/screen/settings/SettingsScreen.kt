@@ -2,6 +2,9 @@
 
 package com.kerikir.news.presentation.screen.settings
 
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -47,6 +50,13 @@ fun SettingsScreen(
    onBackClick: () -> Unit,
    viewModel: SettingsViewModel = hiltViewModel()
 ) {
+    val permissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = {
+            viewModel.processCommand(SettingsCommand.SetNotificationsEnabled(it))
+        }
+    )
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
@@ -121,10 +131,12 @@ fun SettingsScreen(
                         ) {
                             Switch(
                                 checked = currentState.notificationsEnabled,
-                                onCheckedChange = {
-                                    viewModel.processCommand(
-                                        SettingsCommand.SetNotificationsEnabled(it)
-                                    )
+                                onCheckedChange = { enabled ->
+                                    if (enabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                        permissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+                                    } else {
+                                        viewModel.processCommand(SettingsCommand.SetNotificationsEnabled(enabled))
+                                    }
                                 }
                             )
                         }
