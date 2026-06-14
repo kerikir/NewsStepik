@@ -54,9 +54,11 @@ fun SettingsScreen(
                 title = { Text(stringResource(R.string.settings)) },
                 navigationIcon = {
                     Icon(
-                        modifier = Modifier.clickable {
-                            onBackClick()
-                        },
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .clickable {
+                                onBackClick()
+                            },
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(R.string.back)
                     )
@@ -75,6 +77,8 @@ fun SettingsScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     item {
+                        Spacer(modifier = Modifier.height(8.dp))
+
                         SettingsCard(
                             title = stringResource(R.string.search_language),
                             subtitle = stringResource(R.string.select_language_for_news_search)
