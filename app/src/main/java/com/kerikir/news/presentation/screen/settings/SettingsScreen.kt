@@ -65,7 +65,23 @@ fun SettingsScreen(
                 LazyColumn(
                     contentPadding = innerPadding
                 ) {
-
+                    item {
+                        SettingsCard(
+                            title = stringResource(R.string.search_language),
+                            subtitle = stringResource(R.string.select_language_for_news_search)
+                        ) {
+                            SettingsDropdown(
+                                items = currentState.languages,
+                                selectedItem = currentState.language,
+                                onItemSelected = {
+                                    viewModel.processCommand(SettingsCommand.SelectLanguage(it))
+                                },
+                                itemAsString = {
+                                    it.toReadableFormat()
+                                }
+                            )
+                        }
+                    }
                 }
             }
 
@@ -114,7 +130,7 @@ private fun<T> SettingsDropdown(
     items: List<T>,
     selectedItem: T,
     onItemSelected: (T) -> Unit,
-    itemAsString: (T) -> String
+    itemAsString: @Composable (T) -> String
 ) {
     var expanded by remember { mutableStateOf(false) }
 
