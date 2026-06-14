@@ -2,6 +2,8 @@
 
 package com.kerikir.news.presentation.screen.settings
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -51,6 +54,9 @@ fun SettingsScreen(
                 title = { Text(stringResource(R.string.settings)) },
                 navigationIcon = {
                     Icon(
+                        modifier = Modifier.clickable {
+                            onBackClick()
+                        },
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(R.string.back)
                     )
@@ -64,7 +70,9 @@ fun SettingsScreen(
 
             is SettingsState.Configuration -> {
                 LazyColumn(
-                    contentPadding = innerPadding
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    contentPadding = innerPadding,
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     item {
                         SettingsCard(
@@ -151,7 +159,13 @@ private fun SettingsCard(
     content: @Composable () -> Unit
 ) {
     Card(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 2.dp
+        )
     ) {
         Column(
             modifier = Modifier
