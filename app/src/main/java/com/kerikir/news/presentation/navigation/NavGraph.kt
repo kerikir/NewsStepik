@@ -12,6 +12,15 @@ fun NavGraph() {
         navController = navController,
         startDestination =
     ) {
-        
+
     }
+}
+
+
+
+sealed class Screen(val route: String) {
+
+    data object Subscriptions: Screen(route = "subscriptions")
+
+    data object Settings: Screen("settings")
 }
