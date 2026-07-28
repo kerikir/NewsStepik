@@ -29,9 +29,13 @@
 | :----------------: | :-------------------: | :------------: |
 | ![Настройки](screenshots/settings.png) | ![Очистка списка статей](screenshots/clear_articles.png) | ![Разрешения уведомлений](screenshots/permission_request.png) |
 
-| Иконка приложения | Уведомление | Поделиться статьей |
+| Выбор интервала | Уведомление | Поделиться статьей |
 | :----------------: | :-------------------: | :------------: |
-| ![Иконка приложения](screenshots/app_icon.png) | ![Уведомление](screenshots/notification.png) | ![Поделиться статьей](screenshots/share_article.png) |
+| ![Выбор интервала](screenshots/select_interval.png) | ![Уведомление](screenshots/notification.png) | ![Поделиться статьей](screenshots/share_article.png) |
+
+| Выбор языка | Иконка приложения | Открытие статьи |
+| :----------------: | :-------------------: | :------------: |
+| ![Выбор языка](screenshots/select_language.png) | ![Иконка приложения](screenshots/app_icon.png) | ![Открытие статьи](screenshots/read_article.png) |
 
 ---
 
