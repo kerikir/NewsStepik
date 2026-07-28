@@ -27,3 +27,16 @@
 | :----------------: | :-------------------: | :------------: |
 | ![Настройки](screenshots/settings.png) | ![Очистка списка статей](screenshots/clear_articles.png) | ![Разрешения уведомлений](screenshots/permission_request.png) |
 
+---
+
+## 🛠 Технологии и инструменты
+
+*   **Язык:** Kotlin
+*   **Архитектура:** MVVM + Clean Architecture
+*   **UI:** Jetpack Compose
+*   **Фоновые задачи:** WorkManager
+*   **Локальное хранилище:** Room + DataStore
+*   **Сеть:** Retrofit
+*   **DI:** Hilt
+
+---
