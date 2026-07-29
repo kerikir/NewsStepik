@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Platform](https://img.shields.io/badge/Platform-Android%20-lightgrey)]()
-[![Version](https://img.shields.io/badge/Version-1.0.0-blue)]()
+[![Version](https://img.shields.io/badge/Version-1.0-blue)]()
 
 Персональная новостная лента, которая учится подстраиваться под ваши интересы. Подпишитесь на важное, скройте лишнее и получайте уведомления о самом актуальном.
 
